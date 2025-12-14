@@ -32,13 +32,28 @@
         app:layout_constraintTop_toTopOf="@id/tvTitle"
         app:tint="#BFA3E8" />
 
+    <TextView
+        android:id="@+id/totalPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rewardsRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddReward"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/totalPoints"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/reward_card" />
 

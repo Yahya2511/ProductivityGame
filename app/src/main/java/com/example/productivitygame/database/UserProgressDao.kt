@@ -20,5 +20,6 @@ interface UserProgressDao {
     @Query("UPDATE user_progress SET total_points = total_points - :cost WHERE id = 1")
     suspend fun deductPoints(cost: Int)
 
-
+    @Query("SELECT * FROM user_progress WHERE id = 1")
+    suspend fun getProgressSynchronously(): UserProgress?
 }

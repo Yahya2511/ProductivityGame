@@ -7,7 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.productivitygame.database.Reward
 
-class RewardAdapter(private var rewards: List<Reward>) : RecyclerView.Adapter<RewardAdapter.RewardViewHolder>() {
+
+class RewardAdapter(
+    private var rewards: List<Reward>,
+    private val onItemClicked: (Reward) -> Unit
+) : RecyclerView.Adapter<RewardAdapter.RewardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RewardViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -17,15 +21,22 @@ class RewardAdapter(private var rewards: List<Reward>) : RecyclerView.Adapter<Re
 
     override fun onBindViewHolder(holder: RewardViewHolder, position: Int) {
         val reward = rewards[position]
-        holder.rewardTitle.text = reward.name
-        holder.rewardPoints.text = "${reward.cost} Points"
+        holder.bind(reward)
+        holder.itemView.setOnClickListener {
+            onItemClicked(reward)
+        }
     }
 
     override fun getItemCount() = rewards.size
 
     class RewardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rewardTitle: TextView = itemView.findViewById(R.id.item_title)
-        val rewardPoints: TextView = itemView.findViewById(R.id.item_points)
+        private val rewardTitle: TextView = itemView.findViewById(R.id.item_title)
+        private val rewardPoints: TextView = itemView.findViewById(R.id.item_points)
+
+        fun bind(reward: Reward) {
+            rewardTitle.text = reward.name
+            rewardPoints.text = "${reward.cost} Points"
+        }
     }
 
     fun updateRewards(newRewards: List<Reward>) {
