@@ -55,4 +55,18 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+
+    // Mockito
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    //OkHttp
+    testImplementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+
+    //mockito
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("junit:junit:4.13.2")
+
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
 }
