@@ -11,10 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.productivitygame.database.AppDatabase
 import com.example.productivitygame.database.Task
 import com.example.productivitygame.database.TaskDao
+import com.example.productivitygame.database.UserProgressDao
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+
 
 class QuestsActivity : AppCompatActivity() {
 
     private lateinit var taskDao: TaskDao
+    private lateinit var userProgressDao: UserProgressDao
     private lateinit var tasksRecyclerView: RecyclerView
     private lateinit var taskAdapter: TaskAdapter
 
@@ -22,10 +27,15 @@ class QuestsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quests)
 
-        taskDao = AppDatabase.getDatabase(applicationContext).taskDao()
+        val db = AppDatabase.getDatabase(applicationContext)
+        taskDao = db.taskDao()
+        userProgressDao = db.userProgressDao()
 
         tasksRecyclerView = findViewById(R.id.tasksRecyclerView)
-        taskAdapter = TaskAdapter(emptyList())
+
+        taskAdapter = TaskAdapter(emptyList()) { task ->
+            finishTask(task)
+        }
         tasksRecyclerView.adapter = taskAdapter
         tasksRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -64,6 +74,13 @@ class QuestsActivity : AppCompatActivity() {
                 val intent = Intent(this, RewardsActivity::class.java)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun finishTask(task: Task) {
+        lifecycleScope.launch {
+            taskDao.completeTask(task.id)
+            userProgressDao.incrementPoints()
         }
     }
 }

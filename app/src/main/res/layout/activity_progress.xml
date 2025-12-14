@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="Week \nProgress!!"
+        android:text="Week Progress!!"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -58,15 +58,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainProgressBar" />
 
+    <TextView
+        android:id="@+id/totalPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateWeek" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardsRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvDateWeek"
         app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
-        tools:listitem="@layout/progress_card"/>
+        app:layout_constraintTop_toBottomOf="@+id/totalPoints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/progress_card" />
 
     <LinearLayout
         android:id="@+id/bottomNavContainer"

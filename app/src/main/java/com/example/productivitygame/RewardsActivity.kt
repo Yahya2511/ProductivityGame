@@ -8,8 +8,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.productivitygame.database.AppDatabase
+import com.example.productivitygame.database.RewardDao
 
 class RewardsActivity : AppCompatActivity() {
+
+    private lateinit var rewardDao: RewardDao
+    private lateinit var rewardsRecyclerView: RecyclerView
+    private lateinit var rewardAdapter: RewardAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,6 +29,19 @@ class RewardsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        rewardDao = AppDatabase.getDatabase(applicationContext).rewardDao()
+
+        rewardsRecyclerView = findViewById(R.id.rewardsRecycler)
+        rewardAdapter = RewardAdapter(emptyList())
+        rewardsRecyclerView.adapter = rewardAdapter
+        rewardsRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        rewardDao.getAvailableRewards().observe(this, Observer { rewards ->
+            rewards?.let {
+                rewardAdapter.updateRewards(it)
+            }
+        })
 
         val btnAddReward = findViewById<Button>(R.id.btnAddReward)
         btnAddReward.setOnClickListener {
